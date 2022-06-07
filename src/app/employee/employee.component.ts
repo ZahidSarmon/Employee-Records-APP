@@ -15,6 +15,7 @@ export class EmployeeComponent implements OnInit {
   EmployeeList:any[]=[];
   isSelect:boolean=false;
   isLoad:boolean=true;
+  isSave:boolean=false;
   baseUrl="http://localhost:5000/api/Employee/";
   constructor(private fb: FormBuilder,private appComponent: AppComponent,private authService:AuthService) { }
 
@@ -42,7 +43,7 @@ export class EmployeeComponent implements OnInit {
     try{
       this.authService.GetAllEmployee().subscribe(data=>{
         console.log("Get All Data::");
-        for(let item of data.res)
+        for(let item of data)
         {
           this.EmployeeList.push(item);
         }
@@ -127,6 +128,7 @@ export class EmployeeComponent implements OnInit {
   }
   AddOrEdit()
   {
+    this.isSave=true;
     if(this.fmgEmployee.valid)
     {
       this.authService.SaveOrEditEmployee(Object.assign({},this.fmgEmployee.value)).subscribe(data=>{
@@ -141,6 +143,7 @@ export class EmployeeComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           })
+          this.isSave=false;
           $("#exampleModal").modal('hide');
           this.GetAllData();
         }

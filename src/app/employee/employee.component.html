@@ -80,7 +80,8 @@
                 </div>
                 <div class="modal-footer" *ngIf="!isSelect">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="AddOrEdit()">Submit</button>
+                    <button type="button" class="btn btn-primary" *ngIf="!isSave" (click)="AddOrEdit()">Submit</button>
+                    <button type="button" class="btn btn-primary" *ngIf="isSave" disabled>Saving..</button>
                 </div>
             </form>
         </div>
